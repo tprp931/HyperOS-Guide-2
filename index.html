@@ -1,381 +1,262 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>HyperOS — Гайд з прошивки телефонів</title>
-    <style>
-        :root {
-            --bg: #0b0c17;
-            --panel: #131625;
-            --muted: #99a0b3;
-            --accent: #00e0ff;
-            --accent2: #7c5cff;
-            --card: rgba(255,255,255,0.03);
-            --radius: 16px;
-            --container: 1100px;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HyperOS — Гайд з прошивки телефонів</title>
+<link rel="stylesheet" href="style.css">
+<style>
+:root {
+    --bg: #070913;
+    --panel: #0f1720;
+    --muted: #98a0b3;
+    --accent: #00e0ff;
+    --accent-2: #7c5cff;
+    --glass: rgba(255,255,255,0.04);
+    --card: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    --radius: 14px;
+    --container: 1100px;
+}
+* { box-sizing: border-box; margin:0; padding:0; }
+body {
+    font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: #e6eef8;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+header {
+    max-width: var(--container);
+    margin: 30px auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: 0 6px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.03);
+}
+.logo {
+    width:64px; height:64px; display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(135deg,var(--accent),var(--accent-2));
+    border-radius:12px;
+    font-weight:800; font-size:20px; color:#071018;
+    box-shadow:0 6px 20px rgba(124,92,255,0.12);
+}
+.title h1 { font-size:20px; color: var(--accent); }
+.title p { font-size:13px; color: var(--muted); margin-top:4px; }
 
-        * {
-            box-sizing: border-box;
-        }
+nav.topnav {
+    max-width: var(--container);
+    margin: 20px auto;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+nav.topnav a {
+    padding: 10px 14px;
+    color: var(--muted);
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight:600;
+    transition:0.2s;
+    border:1px solid transparent;
+}
+nav.topnav a:hover {
+    color:#fff;
+    background: var(--glass);
+    border-color: rgba(255,255,255,0.03);
+    transform: translateY(-2px);
+}
 
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0b0c17 0%, #1a1c2b 100%);
-            color: #e6eef8;
-            line-height: 1.5;
-            overflow-x: hidden;
-        }
+.wrap { max-width: var(--container); margin:20px auto; display:grid; grid-template-columns:1fr 380px; gap:20px; }
+main {
+    background: var(--panel);
+    border-radius: var(--radius);
+    padding:20px;
+    border:1px solid rgba(255,255,255,0.03);
+}
+aside {
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0));
+    border-radius: var(--radius);
+    padding:18px;
+    border:1px solid rgba(255,255,255,0.03);
+}
 
-        header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            max-width: var(--container);
-            margin: 20px auto;
-            padding: 20px;
-            background: rgba(255,255,255,0.02);
-            border-radius: var(--radius);
-            box-shadow: 0 6px 30px rgba(0,0,0,0.5);
-            animation: fadeDown 0.8s ease;
-        }
+.card {
+    background: var(--card);
+    padding:14px;
+    border-radius: var(--radius);
+    border:1px solid rgba(255,255,255,0.02);
+    margin-bottom:16px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover { transform: translateY(-5px); box-shadow:0 12px 25px rgba(0,224,255,0.2); }
 
-        .logo {
-            width: 70px;
-            height: 70px;
-            border-radius: var(--radius);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-            color: #0b0c17;
-            box-shadow: 0 6px 20px rgba(124,92,255,0.3);
-            animation: pop 0.6s forwards;
-        }
+.kbd {
+    display:inline-block;
+    background: rgba(0,0,0,0.35);
+    padding:4px 8px;
+    border-radius:6px;
+    color:var(--muted);
+    font-weight:700;
+    font-size:12px;
+}
 
-        .title h1 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(90deg,var(--accent),var(--accent2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: fadeIn 1s forwards;
-        }
+h2.section { color: var(--accent); margin-bottom:14px; font-size:18px; }
 
-        .title p {
-            margin: 5px 0 0 0;
-            font-size: 14px;
-            color: var(--muted);
-        }
+.video-wrap {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    border-radius:10px;
+    overflow:hidden;
+    background: #05060a;
+    border:1px solid rgba(255,255,255,0.02);
+    margin-top:10px;
+}
+.video-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
 
-        nav.topnav {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 20px auto;
-            max-width: var(--container);
-        }
+.download-btn {
+    display:inline-block;
+    margin-top:10px;
+    padding:10px 18px;
+    background: var(--accent);
+    color:#041020;
+    font-weight:bold;
+    border-radius:8px;
+    text-decoration:none;
+    transition:0.2s;
+}
+.download-btn:hover { background: var(--accent-2); }
 
-            nav.topnav a {
-                text-decoration: none;
-                padding: 10px 16px;
-                border-radius: 12px;
-                color: var(--muted);
-                font-weight: 600;
-                transition: all 0.3s;
-                position: relative;
-            }
+footer { text-align:center; color: var(--muted); margin:50px 0 30px; font-size:13px; }
 
-                nav.topnav a::after {
-                    content: '';
-                    position: absolute;
-                    width: 0;
-                    height: 2px;
-                    background: var(--accent);
-                    left: 50%;
-                    bottom: 0;
-                    transition: 0.3s;
-                    transform: translateX(-50%);
-                }
-
-                nav.topnav a:hover {
-                    color: #fff;
-                }
-
-                    nav.topnav a:hover::after {
-                        width: 80%;
-                    }
-
-        .wrap {
-            display: flex;
-            max-width: var(--container);
-            margin: 0 auto 40px auto;
-            gap: 20px;
-            padding: 0 10px;
-            flex-wrap: wrap;
-        }
-
-        main {
-            flex: 2;
-            min-width: 300px;
-        }
-
-        aside {
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .card {
-            background: var(--panel);
-            border-radius: var(--radius);
-            padding: 18px;
-            margin-bottom: 20px;
-            border: 1px solid var(--card);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-            .card:hover {
-                transform: translateY(-5px) scale(1.02);
-                box-shadow: 0 12px 30px rgba(0,224,255,0.2);
-            }
-
-        h2 {
-            color: var(--accent);
-            margin-top: 0;
-        }
-
-        kbd {
-            background: rgba(0,0,0,0.35);
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 12px;
-        }
-
-        .video-wrap {
-            position: relative;
-            padding-top: 56.25%;
-            border-radius: var(--radius);
-            overflow: hidden;
-            border: 1px solid var(--card);
-            margin-top: 10px;
-        }
-
-            .video-wrap iframe {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                border: 0;
-            }
-
-        .tools-section h2 {
-            margin-bottom: 10px;
-        }
-
-        .tool-card {
-            background: rgba(255,255,255,0.02);
-            padding: 12px;
-            margin-bottom: 10px;
-            border-radius: 12px;
-            border: 1px solid var(--card);
-            transition: 0.3s;
-        }
-
-            .tool-card:hover {
-                transform: translateY(-5px) scale(1.02);
-                border-color: var(--accent);
-                box-shadow: 0 12px 25px rgba(0,224,255,0.15);
-            }
-
-        .download-btn {
-            display: inline-block;
-            padding: 8px 16px;
-            margin-top: 8px;
-            background: linear-gradient(90deg, var(--accent), var(--accent2));
-            color: #0b0c17;
-            font-weight: bold;
-            border-radius: 12px;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-            .download-btn:hover {
-                transform: scale(1.05);
-                background: linear-gradient(90deg, var(--accent2), var(--accent));
-            }
-
-        footer {
-            text-align: center;
-            color: var(--muted);
-            padding: 20px;
-        }
-
-        /* Анимации */
-        @keyframes fadeIn {
-            from {
-                opacity: 0
-            }
-
-            to {
-                opacity: 1
-            }
-        }
-
-        @keyframes fadeDown {
-            from {
-                transform: translateY(-30px);
-                opacity: 0
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1
-            }
-        }
-
-        @keyframes pop {
-            from {
-                transform: scale(0);
-                opacity: 0
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1
-            }
-        }
-    </style>
+@media(max-width:980px){
+    .wrap { grid-template-columns:1fr; padding:10px; }
+    nav.topnav { justify-content:center; }
+}
+</style>
 </head>
 <body>
+<header>
+    <div class="logo">H</div>
+    <div class="title">
+        <h1 class="glow">HyperOS — Гайд з прошивки телефонів</h1>
+        <p>Інструкції: TWRP, розблокування bootloader, ADB / Fastboot, microG</p>
+    </div>
+</header>
 
-    <header>
-        <div class="logo">H</div>
-        <div class="title">
-            <h1>HyperOS — Гайд з прошивки телефонів</h1>
-            <p>Інструкції: TWRP, розблокування bootloader, ADB / Fastboot, microG</p>
-        </div>
-    </header>
+<nav class="topnav">
+    <a href="#bootloader">Розблокування</a>
+    <a href="#twrp">TWRP</a>
+    <a href="#drivers">Драйвери</a>
+    <a href="#gms">microG / GApps</a>
+    <a href="#videos">Відео інструкції</a>
+</nav>
 
-    <nav class="topnav">
-        <a href="#bootloader">Розблокування</a>
-        <a href="#twrp">TWRP</a>
-        <a href="#drivers">Драйвери</a>
-        <a href="#gms">microG / GApps</a>
-        <a href="#videos">Відео</a>
-    </nav>
+<div class="wrap">
+<main>
+<h2 class="section" id="bootloader">🔧 Розблокування завантажувача</h2>
+<div class="card howto">
+    <h3>Xiaomi</h3>
+    <ol>
+        <li>Налаштування → Про пристрій → 7 разів "Номер збірки", увімкнути <span class="kbd">OEM Unlock</span> і <span class="kbd">USB Debugging</span>.</li>
+        <li>Використати <b>Mi Unlock Tool</b> на ПК.</li>
+        <li>Fastboot → підключити → Run Mi Unlock → Unlock (72–168 годин).</li>
+    </ol>
+</div>
+<div class="card howto">
+    <h3>Samsung</h3>
+    <ol>
+        <li>Параметри розробника → увімкнути <span class="kbd">OEM Unlock</span>.</li>
+        <li>Вимкнути телефон → <span class="kbd">Volume Down + Bixby/Side + Power</span> → Download Mode.</li>
+        <li>Використовувати <b>Odin3</b> або офіційні інструменти Samsung.</li>
+    </ol>
+</div>
 
-    <div class="wrap">
-        <main>
-            <h2 id="bootloader">🔧 Розблокування завантажувача</h2>
-            <div class="card">
-                <h3>Xiaomi</h3>
-                <ol>
-                    <li>Налаштування → Про пристрій → 7 разів "Номер збірки", увімкнути <kbd>OEM Unlock</kbd> і <kbd>USB Debugging</kbd>.</li>
-                    <li>Використати <b>Mi Unlock Tool</b> на ПК.</li>
-                    <li>Fastboot → Run Mi Unlock → Unlock (72–168 годин).</li>
-                </ol>
-            </div>
+<h2 class="section" id="twrp">💾 Як встановити TWRP</h2>
+<div class="card howto">
+    <ol>
+        <li>Завантажити підходящий <b>twrp.img</b>.</li>
+        <li>Fastboot → <pre>fastboot flash recovery twrp.img
+fastboot reboot recovery</pre></li>
+        <li>Wipe → Advanced Wipe перед встановленням ROM / GApps.</li>
+    </ol>
+</div>
 
-            <div class="card">
-                <h3>Samsung</h3>
-                <ol>
-                    <li>Параметри розробника → увімкнути <kbd>OEM Unlock</kbd>.</li>
-                    <li>Вимкнути телефон → <kbd>Volume Down + Bixby/Side + Power</kbd> → Download Mode.</li>
-                    <li>Використовувати <b>Odin3</b> або офіційні інструменти.</li>
-                </ol>
-            </div>
+<h2 class="section" id="drivers">🔌 Драйвери ADB / Fastboot</h2>
+<div class="card">
+    <ul>
+        <li>Platform Tools (adb, fastboot)</li>
+        <li>USB драйвери: Xiaomi, MTK, Qualcomm, Samsung</li>
+        <li>Перевірка: <pre>adb devices
+fastboot devices</pre></li>
+    </ul>
+</div>
 
-            <h2 id="twrp">💾 Як встановити TWRP</h2>
-            <div class="card">
-                <ol>
-                    <li>Завантажити <b>twrp.img</b>.</li>
-                    <li>
-                        Fastboot → <pre>fastboot flash recovery twrp.img
-fastboot reboot recovery</pre>
-                    </li>
-                    <li>Wipe → Advanced Wipe перед ROM / GApps.</li>
-                </ol>
-            </div>
+<h2 class="section" id="gms">🧩 microG / GApps</h2>
+<div class="card">
+    <p>MicroG для Android 15 або APK вручну.</p>
+</div>
 
-            <h2 id="drivers">🔌 Драйвери ADB / Fastboot</h2>
-            <div class="card">
-                <ul>
-                    <li>Android Platform Tools (adb, fastboot)</li>
-                    <li>USB-драйвери: Xiaomi, MTK, Qualcomm, Samsung</li>
-                    <li>
-                        Перевірка:
-                        <pre>adb devices
-fastboot devices</pre>
-                    </li>
-                </ul>
-            </div>
+<h2 class="section" id="videos">🎬 Відеоінструкції</h2>
+<div class="card">
+    <h3>Xiaomi</h3>
+    <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/coyR1MDuR4k" title="Розблокування Xiaomi" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</div>
+<div class="card">
+    <h3>Samsung</h3>
+    <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/FuT4VF8nLrQ" title="Розблокування Samsung" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</div>
+</main>
 
-            <h2 id="gms">🧩 microG / GApps</h2>
-            <div class="card">
-                <p>microG дає альтернативу GApps. Використовуй Magisk модуль або APK вручну.</p>
-            </div>
-
-            <h2 id="videos">🎬 Відеоінструкції</h2>
-            <div class="card video-wrap">
-                <iframe src="https://www.youtube.com/embed/coyR1MDuR4k" allowfullscreen></iframe>
-            </div>
-            <div class="card video-wrap">
-                <iframe src="https://www.youtube.com/embed/FuT4VF8nLrQ" allowfullscreen></iframe>
-            </div>
-        </main>
-
-        <aside>
-            <div class="card">
-                <strong>Коротка пам'ятка</strong>
-                <p>1) Бекап. 2) OEM Unlock стирає дані. 3) Використовуй офіційні інструменти.</p>
-            </div>
-
-            <div class="card">
-                <strong>Швидкі команди</strong>
-                <pre>adb devices
+<aside>
+<div class="card">
+    <strong>Коротка пам'ятка</strong>
+    <p class="muted">1) Бекап. 2) OEM Unlock стирає дані. 3) Використовуй офіційні інструменти.</p>
+</div>
+<div class="card">
+    <strong>Швидкі команди</strong>
+    <pre>adb devices
 adb reboot bootloader
 fastboot flash recovery twrp.img</pre>
-            </div>
-
-            <div class="card tools-section">
-                <h2>📥 Необхідні інструменти</h2>
-                <div class="tool-card">
-                    <h3>🔓 Mi Flash Unlock</h3>
-                    <a href="files/Mi-Unlock-Tool.zip" download class="download-btn">Скачати Mi Unlock Tool</a>
-                </div>
-                <div class="tool-card">
-                    <h3>🛠 Mi Flash Tool</h3>
-                    <a href="files/Mi-Flash-Tool.zip" download class="download-btn">Скачати Mi Flash Tool</a>
-                </div>
-                <div class="tool-card">
-                    <h3>📦 MTK USB Drivers</h3>
-                    <a href="files/MTK-Driver-v5.2307.zip" download class="download-btn">Скачати MTK драйвери</a>
-                </div>
-                <div class="tool-card">
-                    <h3>📦 Samsung USB Drivers</h3>
-                    <a href="files/Samsung-Drivers.zip" download class="download-btn">Скачати Samsung драйвери</a>
-                </div>
-                <div class="tool-card">
-                    <h3>📱 Odin3</h3>
-                    <a href="files/Odin3.zip" download class="download-btn">Скачати Odin3</a>
-                </div>
-                <div class="tool-card">
-                    <h3>🛠 Platform-Tools</h3>
-                    <a href="files/Platform-Tools.zip" download class="download-btn">Скачати Platform-Tools</a>
-                </div>
-            </div>
-        </aside>
-    </div>
-
-    <footer>
-        © 2025 HyperOS Guide
-    </footer>
-
+</div>
+<div class="card">
+<h2>📥 Скачати інструменти</h2>
+<div class="tool-card">
+    <h3>🔓 Mi Unlock Tool</h3>
+    <a href="files/Mi-Unlock-Tool.zip" download class="download-btn">Скачати</a>
+</div>
+<div class="tool-card">
+    <h3>🛠 Mi Flash Tool</h3>
+    <a href="files/Mi-Flash-Tool.zip" download class="download-btn">Скачати</a>
+</div>
+<div class="tool-card">
+    <h3>📦 MTK USB Drivers</h3>
+    <a href="files/MTK-Driver-v5.2307.zip" download class="download-btn">Скачати</a>
+</div>
+<div class="tool-card">
+    <h3>📦 Samsung USB Drivers</h3>
+    <a href="files/Samsung-Drivers.zip" download class="download-btn">Скачати</a>
+</div>
+<div class="tool-card">
+    <h3>📱 Odin3</h3>
+    <a href="files/Odin3.zip" download class="download-btn">Скачати</a>
+</div>
+<div class="tool-card">
+    <h3>🛠 Platform Tools</h3>
+    <a href="files/Platform-Tools.zip" download class="download-btn">Скачати</a>
+</div>
+</aside>
+</div>
+<footer>
+© 2025 HyperOS Guide
+</footer>
 </body>
 </html>
