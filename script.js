@@ -7,13 +7,12 @@ themeToggle.addEventListener("click", () => {
     themeToggle.textContent = dark ? "🌙" : "☀️";
 });
 
-// Плавный скролл для меню
+// Плавный скролл
 document.querySelectorAll('.topnav a').forEach(link => {
     link.addEventListener('click', e => {
         e.preventDefault();
-        const targetID = link.getAttribute('href').substring(1);
-        const section = document.getElementById(targetID);
-        section.scrollIntoView({ behavior: 'smooth' });
+        const target = document.getElementById(link.getAttribute('href').substring(1));
+        target.scrollIntoView({ behavior: 'smooth' });
     });
 });
 
@@ -21,15 +20,13 @@ document.querySelectorAll('.topnav a').forEach(link => {
 const cards = document.querySelectorAll('.card');
 const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        if(entry.isIntersecting){
             entry.target.style.opacity = 1;
             entry.target.style.transform = 'translateY(0)';
         }
     });
 }, { threshold: 0.1 });
+
 cards.forEach(card => observer.observe(card));
-
-
-
 
 
