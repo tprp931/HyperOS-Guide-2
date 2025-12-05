@@ -1,85 +1,72 @@
-/* ================= ОСНОВНЫЕ ПЕРЕМЕННЫЕ ================= */
 :root {
     --bg-dark: #000000;
-    --bg-light: #ffffff;
-    --text-light: #00ffff;
-    --text-dark: #111;
-    --card-bg: rgba(20, 20, 20, 0.8);
-    --neon-color: #0ff;
-    --hover-color: #0ff;
-    --blur: 5px;
+    --text-color: #00ffff;
+    --card-bg: rgba(20,20,20,0.85);
+    --neon: #0ff;
+    --blur: 8px;
 }
 
-/* ================= ТЕМА ================= */
 html[data-theme="dark"] {
     background: var(--bg-dark);
-    color: var(--text-light);
+    color: var(--text-color);
 }
 
-html[data-theme="light"] {
-    background: var(--bg-light);
-    color: var(--text-dark);
-}
-
-/* ================= HEADER ================= */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    border-bottom: 1px solid var(--neon-color);
+    border-bottom: 1px solid var(--neon);
 }
 
 .logo {
     font-size: 2rem;
     font-weight: bold;
-    color: var(--neon-color);
-    text-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-color);
+    color: var(--neon);
+    text-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon);
 }
 
 .title h1 {
     font-size: 1.8rem;
-    text-shadow: 0 0 10px var(--neon-color);
+    text-shadow: 0 0 10px var(--neon);
 }
 
 .toggle-btn {
     padding: 0.5rem 1rem;
     cursor: pointer;
-    border: 1px solid var(--neon-color);
-    background: transparent;
-    color: var(--neon-color);
+    border: 1px solid var(--neon);
     border-radius: 5px;
+    background: transparent;
+    color: var(--neon);
     transition: 0.3s;
 }
 
 .toggle-btn:hover {
-    box-shadow: 0 0 20px var(--neon-color);
+    box-shadow: 0 0 20px var(--neon);
 }
 
-/* ================= NAVIGATION ================= */
 .topnav {
     display: flex;
     justify-content: center;
     gap: 1.5rem;
     padding: 1rem;
-    background: rgba(10, 10, 10, 0.9);
+    background: rgba(10,10,10,0.9);
     position: sticky;
     top: 0;
     z-index: 100;
 }
 
 .topnav a {
-    color: var(--text-light);
+    color: var(--text-color);
     text-decoration: none;
     font-weight: bold;
     transition: 0.3s;
 }
 
 .topnav a:hover {
-    text-shadow: 0 0 10px var(--neon-color), 0 0 20px var(--neon-color);
+    text-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon);
 }
 
-/* ================= ОСНОВНОЙ КОНТЕНТ ================= */
 .wrap {
     display: flex;
     flex-direction: column;
@@ -97,9 +84,9 @@ main {
     background: var(--card-bg);
     padding: 1.5rem;
     border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 0 15px rgba(0,255,255,0.2);
     backdrop-filter: blur(var(--blur));
+    transition: transform 0.3s, box-shadow 0.3s;
     opacity: 0;
     transform: translateY(20px);
     animation: fadeIn 0.6s forwards;
@@ -107,55 +94,44 @@ main {
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+    box-shadow: 0 0 25px rgba(0,255,255,0.5);
 }
 
-/* ================= СЕКЦИИ ================= */
 .section {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: var(--neon-color);
+    color: var(--neon);
 }
 
-/* ================= ВИДЕО ================= */
 .video-wrap iframe {
     width: 100%;
     height: 300px;
     border-radius: 10px;
     border: none;
-    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 15px rgba(0,255,255,0.3);
 }
 
-/* ================= КНОПКИ ================= */
 .download-btn {
     display: inline-block;
     padding: 0.5rem 1rem;
     margin-top: 0.5rem;
     background: transparent;
-    border: 1px solid var(--neon-color);
+    border: 1px solid var(--neon);
     border-radius: 5px;
-    color: var(--neon-color);
+    color: var(--neon);
     text-decoration: none;
     transition: 0.3s;
 }
 
 .download-btn:hover {
-    box-shadow: 0 0 20px var(--neon-color);
+    box-shadow: 0 0 20px var(--neon);
     transform: scale(1.05);
 }
 
-/* ================= АНИМАЦИИ ================= */
 @keyframes fadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* ================= АДАПТИВ ================= */
 @media (max-width: 768px) {
-    .topnav {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
+    .topnav { flex-direction: column; gap: 0.5rem; }
 }
