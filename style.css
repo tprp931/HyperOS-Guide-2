@@ -1,0 +1,225 @@
+
+/* =============================== */
+/*        “≈Ã¿ + œ≈–≈Ã≈ÕÕ€≈        */
+/* =============================== */
+
+:root {
+    --bg: #0d0d0f;
+    --bg2: #16161a;
+    --text: #ffffff;
+    --text-muted: #aaaaaa;
+    --accent: #4aa3ff;
+    --card: #1b1b22;
+    --shadow: rgba(0,0,0,0.35);
+    --blur: blur(15px);
+    --transition: 0.25s ease;
+    --radius: 14px;
+}
+
+[data-theme="light"] {
+    --bg: #ffffff;
+    --bg2: #f5f5f7;
+    --text: #111;
+    --text-muted: #444;
+    --accent: #0066ff;
+    --card: #ffffff;
+    --shadow: rgba(0,0,0,0.15);
+}
+
+/* =============================== */
+/*        √ÀŒ¡¿À‹Õ€≈ —“»À»         */
+/* =============================== */
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+    transition: background var(--transition), color var(--transition);
+}
+
+h1, h2, h3 {
+    margin: 0 0 10px;
+}
+
+/* =============================== */
+/*            HEADER               */
+/* =============================== */
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 25px;
+    background: var(--bg2);
+    box-shadow: 0 4px 20px var(--shadow);
+    position: sticky;
+    top: 0;
+    backdrop-filter: var(--blur);
+    z-index: 999;
+}
+
+.logo {
+    width: 55px;
+    height: 55px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 27px;
+    font-weight: bold;
+    box-shadow: 0 0 20px var(--accent);
+}
+
+/* Glow animation */
+.glow {
+    animation: glow 2.5s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 8px var(--accent);
+    }
+
+    to {
+        text-shadow: 0 0 20px var(--accent);
+    }
+}
+
+/* =============================== */
+/*           Õ¿¬»√¿÷»ﬂ            */
+/* =============================== */
+
+.topnav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px;
+    background: var(--bg2);
+    box-shadow: 0 4px 15px var(--shadow);
+    margin-bottom: 20px;
+    position: sticky;
+    top: 85px;
+    z-index: 998;
+    backdrop-filter: var(--blur);
+}
+
+    .topnav a {
+        color: var(--text);
+        padding: 8px 18px;
+        border-radius: var(--radius);
+        text-decoration: none;
+        transition: background var(--transition), transform var(--transition);
+    }
+
+        .topnav a:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+/* =============================== */
+/*            Œ—ÕŒ¬¿               */
+/* =============================== */
+
+.wrap {
+    display: grid;
+    grid-template-columns: 2.3fr 1fr;
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: 0 8px 25px var(--shadow);
+    backdrop-filter: var(--blur);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 35px var(--shadow);
+    }
+
+.muted {
+    color: var(--text-muted);
+}
+
+/* =============================== */
+/*       ¬»ƒ≈Œ +  ¿–“»Õ »          */
+/* =============================== */
+
+.video-wrap {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+}
+
+    .video-wrap iframe {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: var(--radius);
+    }
+
+/* =============================== */
+/*           ÕŒœ » — ¿◊¿“‹         */
+/* =============================== */
+
+.download-btn {
+    display: inline-block;
+    padding: 10px 16px;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    border-radius: var(--radius);
+    transition: var(--transition);
+    font-weight: bold;
+}
+
+    .download-btn:hover {
+        opacity: 0.8;
+        transform: scale(1.05);
+    }
+
+/* =============================== */
+/*              FOOTER             */
+/* =============================== */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    color: var(--text-muted);
+}
+
+/* =============================== */
+/*          ¿ƒ¿œ“»¬ÕŒ—“‹           */
+/* =============================== */
+
+@media (max-width: 900px) {
+    .wrap {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .topnav {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 500px) {
+    .logo {
+        width: 42px;
+        height: 42px;
+        font-size: 20px;
+    }
+}
