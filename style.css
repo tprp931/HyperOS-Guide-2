@@ -1,184 +1,169 @@
-:root {
-    --bg: #070913;
-    --panel: #0f1720;
-    --muted: #98a0b3;
-    --accent: #00e0ff;
-    --accent-2: #7c5cff;
-    --glass: rgba(255,255,255,0.04);
-    --card: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    --radius: 14px;
-    --container: 1100px;
-}
-
+/* ===== БАЗА ===== */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
 }
 
 body {
-    font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
-    background: radial-gradient(800px 400px at 10% 10%, rgba(124,92,255,0.06), transparent 8%),
-                radial-gradient(700px 380px at 90% 90%, rgba(0,224,255,0.04), transparent 10%),
-                var(--bg);
-    color: #e6eef8;
-    line-height: 1.6;
-    overflow-x: hidden;
+    background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+    color: #fff;
+    padding-bottom: 50px;
+    animation: fadeBody 0.8s ease;
 }
 
+@keyframes fadeBody {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ===== HEADER ===== */
 header {
-    max-width: var(--container);
-    margin: 30px auto;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    border-radius: var(--radius);
-    background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    box-shadow: 0 6px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.03);
-    animation: fadeIn 1s ease-out;
+    text-align: center;
+    padding: 40px 20px;
 }
 
 .logo {
-    width:64px; height:64px;
-    display:flex; align-items:center; justify-content:center;
-    background: linear-gradient(135deg,var(--accent),var(--accent-2));
-    border-radius:12px;
-    font-weight:800; font-size:20px; color:#071018;
-    box-shadow:0 6px 20px rgba(124,92,255,0.12);
+    font-size: 60px;
+    font-weight: bold;
+    background: #00aaff;
+    width: 90px;
+    height: 90px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 0 20px #00aaff;
+    animation: float 3s infinite ease-in-out;
 }
 
-.title h1 { font-size:22px; color: var(--accent); }
-.title p { font-size:14px; color: var(--muted); margin-top:4px; }
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+}
 
-nav.topnav {
-    max-width: var(--container);
-    margin: 20px auto;
+.title {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.subtitle {
+    opacity: 0.7;
+    margin-top: 5px;
+}
+
+/* ===== NAVBAR ===== */
+.nav {
     display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+    padding: 15px 0;
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
-nav.topnav a {
-    padding: 10px 14px;
-    color: var(--muted);
+
+.nav a {
+    color: #fff;
     text-decoration: none;
+    padding: 8px 14px;
     border-radius: 10px;
-    font-weight:600;
-    transition:0.3s;
-    border:1px solid transparent;
-}
-nav.topnav a:hover {
-    color:#fff;
-    background: var(--glass);
-    border-color: rgba(255,255,255,0.03);
-    transform: translateY(-3px);
+    transition: 0.25s;
 }
 
-.wrap {
-    max-width: var(--container);
-    margin: 20px auto;
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: 20px;
+.nav a:hover {
+    background: rgba(0,170,255,0.4);
+    box-shadow: 0 0 10px #00aaff;
 }
 
-main {
-    background: var(--panel);
-    border-radius: var(--radius);
-    padding: 20px;
-    border: 1px solid rgba(255,255,255,0.03);
-    animation: fadeInUp 1s ease-out;
+/* ===== ОСНОВНОЙ КОНТЕЙНЕР ===== */
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    padding-top: 30px;
 }
 
-aside {
-    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0));
-    border-radius: var(--radius);
-    padding: 18px;
-    border:1px solid rgba(255,255,255,0.03);
-    animation: fadeIn 1.2s ease-out;
-}
-
+/* ===== КАРТОЧКИ ===== */
 .card {
-    background: var(--card);
-    padding: 14px;
-    border-radius: var(--radius);
-    border:1px solid rgba(255,255,255,0.02);
-    margin-bottom:16px;
-    transition: transform 0.3s, box-shadow 0.3s;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.6s forwards;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    padding: 20px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    transition: 0.3s;
 }
 
-.card:nth-child(1) { animation-delay: 0.1s; }
-.card:nth-child(2) { animation-delay: 0.2s; }
-.card:nth-child(3) { animation-delay: 0.3s; }
-.card:nth-child(4) { animation-delay: 0.4s; }
-.card:nth-child(5) { animation-delay: 0.5s; }
-
-.card:hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,224,255,0.2); }
-
-.kbd {
-    display:inline-block;
-    background: rgba(0,0,0,0.35);
-    padding:4px 8px;
-    border-radius:6px;
-    color:var(--muted);
-    font-weight:700;
-    font-size:12px;
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(0,170,255,0.4);
 }
 
-h2.section { color: var(--accent); margin-bottom:14px; font-size:18px; }
+.fade {
+    animation: fadeUp 0.8s ease;
+}
 
-.video-wrap {
-    position: relative;
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== КНОПКИ ===== */
+.btn {
+    display: inline-block;
+    padding: 10px 16px;
+    background: #00aaff;
+    color: #fff;
+    border-radius: 12px;
+    margin-top: 10px;
+    text-decoration: none;
+    transition: 0.25s;
+}
+
+.btn:hover {
+    background: #0090dd;
+    box-shadow: 0 0 15px #00aaff;
+}
+
+/* ===== ВИДЕО ===== */
+.video iframe {
     width: 100%;
-    padding-top: 56.25%;
-    border-radius:10px;
-    overflow:hidden;
-    background: #05060a;
-    border:1px solid rgba(255,255,255,0.02);
-    margin-top:10px;
-    animation: fadeIn 1s ease-out;
+    height: 220px;
+    border: none;
+    border-radius: 15px;
 }
 
-.video-wrap iframe {
-    position:absolute; top:0; left:0; width:100%; height:100%; border:0;
+/* ===== ТЕКСТ ===== */
+.kbd {
+    background: #333;
+    padding: 4px 6px;
+    border-radius: 6px;
 }
 
-.download-btn {
-    display:inline-block;
-    margin-top:10px;
-    padding:10px 18px;
-    background: var(--accent);
-    color:#041020;
-    font-weight:bold;
-    border-radius:8px;
-    text-decoration:none;
-    transition:0.3s;
-}
-.download-btn:hover { background: var(--accent-2); transform: translateY(-2px); }
-
+/* ===== FOOTER ===== */
 footer {
-    text-align:center;
-    color: var(--muted);
-    margin:50px 0 30px;
-    font-size:13px;
+    text-align: center;
+    padding: 20px;
+    opacity: 0.7;
+    margin-top: 40px;
+    font-size: 14px;
 }
 
-/* Media queries */
-@media(max-width:980px){
-    .wrap { grid-template-columns:1fr; padding:10px; }
-    nav.topnav { justify-content:center; }
-}
-
-/* Animations */
-@keyframes fadeIn {
-    0% { opacity:0; }
-    100% { opacity:1; }
-}
-@keyframes fadeInUp {
-    0% { opacity:0; transform: translateY(20px); }
-    100% { opacity:1; transform: translateY(0); }
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 600px) {
+    .nav {
+        flex-wrap: wrap;
+    }
+    .logo {
+        width: 70px;
+        height: 70px;
+        font-size: 40px;
+    }
+    .title {
+        font-size: 26px;
+    }
 }
