@@ -17,7 +17,7 @@ document.querySelectorAll('.topnav a').forEach(link => {
     });
 });
 
-// Плавная анимация появления карточек при скролле
+// Анимация появления карточек
 const cards = document.querySelectorAll('.card');
 const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -27,7 +27,6 @@ const observer = new IntersectionObserver(entries => {
         }
     });
 }, { threshold: 0.1 });
-
 cards.forEach(card => observer.observe(card));
 
 
