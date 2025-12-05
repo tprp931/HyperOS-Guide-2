@@ -1,14 +1,19 @@
 :root {
     --bg-dark: #000000;
     --text-color: #00ffff;
-    --card-bg: rgba(20,20,20,0.85);
-    --neon: #0ff;
-    --blur: 8px;
+    --card-bg: rgba(0,0,0,0.85);
+    --neon: #00ffff;
+    --blur: 10px;
 }
 
 html[data-theme="dark"] {
     background: var(--bg-dark);
     color: var(--text-color);
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 header {
@@ -23,21 +28,21 @@ header {
     font-size: 2rem;
     font-weight: bold;
     color: var(--neon);
-    text-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon);
+    text-shadow: 0 0 10px var(--neon);
 }
 
 .title h1 {
     font-size: 1.8rem;
-    text-shadow: 0 0 10px var(--neon);
+    text-shadow: 0 0 15px var(--neon);
 }
 
 .toggle-btn {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
     border: 1px solid var(--neon);
     border-radius: 5px;
+    padding: 0.5rem 1rem;
     background: transparent;
     color: var(--neon);
+    cursor: pointer;
     transition: 0.3s;
 }
 
@@ -50,9 +55,9 @@ header {
     justify-content: center;
     gap: 1.5rem;
     padding: 1rem;
-    background: rgba(10,10,10,0.9);
     position: sticky;
     top: 0;
+    background: rgba(5,5,5,0.95);
     z-index: 100;
 }
 
@@ -64,17 +69,26 @@ header {
 }
 
 .topnav a:hover {
-    text-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon);
+    text-shadow: 0 0 15px var(--neon), 0 0 30px var(--neon);
 }
 
 .wrap {
     display: flex;
-    flex-direction: column;
-    padding: 2rem;
+    flex-direction: row;
+    justify-content: space-between;
     gap: 2rem;
+    padding: 2rem;
 }
 
 main {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+aside {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -83,24 +97,23 @@ main {
 .card {
     background: var(--card-bg);
     padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0,255,255,0.2);
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,255,255,0.2);
     backdrop-filter: blur(var(--blur));
     transition: transform 0.3s, box-shadow 0.3s;
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeIn 0.6s forwards;
 }
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0 25px rgba(0,255,255,0.5);
+    box-shadow: 0 0 35px rgba(0,255,255,0.5);
 }
 
 .section {
     font-size: 1.5rem;
-    margin-bottom: 1rem;
     color: var(--neon);
+    margin-bottom: 1rem;
 }
 
 .video-wrap iframe {
@@ -108,13 +121,12 @@ main {
     height: 300px;
     border-radius: 10px;
     border: none;
-    box-shadow: 0 0 15px rgba(0,255,255,0.3);
+    box-shadow: 0 0 20px rgba(0,255,255,0.3);
 }
 
 .download-btn {
     display: inline-block;
     padding: 0.5rem 1rem;
-    margin-top: 0.5rem;
     background: transparent;
     border: 1px solid var(--neon);
     border-radius: 5px;
@@ -124,14 +136,11 @@ main {
 }
 
 .download-btn:hover {
-    box-shadow: 0 0 20px var(--neon);
+    box-shadow: 0 0 25px var(--neon);
     transform: scale(1.05);
 }
 
-@keyframes fadeIn {
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 768px) {
-    .topnav { flex-direction: column; gap: 0.5rem; }
+@media (max-width: 900px) {
+    .wrap { flex-direction: column; padding: 1rem; }
+    aside { flex: unset; }
 }
