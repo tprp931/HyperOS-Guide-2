@@ -1,148 +1,195 @@
-<!DOCTYPE html>
-<html lang="uk">
+не надо <!DOCTYPE html>
+<html lang="uk" data-theme="dark">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>HyperOS — Гайд з прошивки телефонів</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body data-theme="dark">
-<header role="banner">
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
     <div class="logo">H</div>
+
     <div class="title">
         <h1 class="glow">HyperOS — Гайд з прошивки телефонів</h1>
         <p>Інструкції: TWRP, розблокування bootloader, ADB / Fastboot, microG</p>
     </div>
-    <button class="toggle-btn">🌙 / ☀️</button>
+
+    <!-- Переключатель темы -->
+    <button id="themeToggle" class="toggle-btn">🌙</button>
 </header>
 
-<nav class="topnav" role="navigation" aria-label="Головне меню">
+<!-- ================= NAVIGATION ================= -->
+
+<nav class="topnav">
     <a href="#bootloader">Розблокування</a>
     <a href="#twrp">TWRP</a>
-    <a href="#firmware">Прошивки</a>
     <a href="#drivers">Драйвери</a>
-    <a href="#tools">Інструменти</a>
+    <a href="#gms">microG / GApps</a>
     <a href="#videos">Відео</a>
 </nav>
 
-<div class="wrap" role="main">
+<!-- ================= CONTENT ================= -->
+
+<div class="wrap">
+
     <main>
-        <section id="bootloader">
-            <h2 class="section">🔧 Розблокування завантажувача</h2>
-            <div class="card howto">
-                <h3>Xiaomi — швидкі кроки</h3>
-                <ol>
-                    <li>Налаштування → Про пристрій → 7 разів "Номер збірки", увімкнути <span class="kbd">OEM Unlock</span> і <span class="kbd">USB Debugging</span>.</li>
-                    <li>Використати <b>Mi Unlock Tool</b> на ПК.</li>
-                    <li>Fastboot режим → підключити до ПК → Run Mi Unlock → Unlock (72–168 годин).</li>
-                </ol>
-                <p class="muted">Увага: стирає всі дані та анулює гарантію.</p>
-            </div>
-            <div class="card howto">
-                <h3>Samsung — коротка інструкція</h3>
-                <ol>
-                    <li>Параметри розробника → увімкнути <span class="kbd">OEM Unlock</span>.</li>
-                    <li>Вимкнути телефон → <span class="kbd">Volume Down + Bixby/Side + Power</span> → Download Mode.</li>
-                    <li>Використовувати <b>Odin3</b> або офіційні Samsung інструменти.</li>
-                </ol>
-                <p class="muted">Деякі моделі операторів не дозволяють розблокування.</p>
-            </div>
-        </section>
 
-        <section id="twrp">
-            <h2 class="section">💾 TWRP Recovery</h2>
-            <div class="card howto">
-                <p>TWRP — це кастомний recovery, який дозволяє встановлювати кастомні ROM, робити бекапи та відновлення системи.</p>
-                <ol>
-                    <li>Завантажити підходящий <b>twrp.img</b> для вашої моделі.</li>
-                    <li>Fastboot → <pre>fastboot flash recovery twrp.img
-fastboot reboot recovery</pre></li>
-                    <li>Wipe → Advanced Wipe (system/data/dalvik) перед встановленням ROM / GApps.</li>
-                </ol>
-                <p>Скачати TWRP: <a href="https://twrp.me/" target="_blank">twrp.me</a></p>
-            </div>
-        </section>
+        <!-- Bootloader -->
+        <h2 class="section" id="bootloader">🔧 Розблокування завантажувача</h2>
 
-        <section id="firmware">
-            <h2 class="section">📦 Прошивки</h2>
-            <div class="card howto">
-                <h3>Стокова прошивка</h3>
-                <p>Офіційна прошивка від виробника. Стабільна, без модифікацій. Використовується для відновлення заводського стану.</p>
-                <p>Скачати стокові прошивки: <a href="https://xiaomi-miui.ru/" target="_blank">Xiaomi</a>, <a href="https://samsung-firmware.org/" target="_blank">Samsung</a></p>
-            </div>
-            <div class="card howto">
-                <h3>Неофіційна прошивка</h3>
-                <p>Кастомні ROM, модифіковані системи з додатковими функціями. Використання на свій страх і ризик.</p>
-                <p>Де шукати: <a href="https://forum.xda-developers.com/" target="_blank">XDA Developers</a></p>
-            </div>
-        </section>
+        <div class="card howto fade">
+            <h3>Xiaomi — швидкі кроки</h3>
+            <ol>
+                <li>Увімкнути <span class="kbd">OEM Unlock</span> та <span class="kbd">USB Debugging</span>.</li>
+                <li>Використати <b>Mi Unlock Tool</b> на ПК.</li>
+                <li>Fastboot → Mi Unlock → очікування 72–168 годин.</li>
+            </ol>
+            <p class="muted">⚠ Стирає всі дані, анулює гарантію.</p>
+        </div>
 
-        <section id="drivers">
-            <h2 class="section">🔌 Драйвери</h2>
-            <div class="card">
-                <ul>
-                    <li>Android Platform Tools (adb, fastboot)</li>
-                    <li>USB-драйвери: Xiaomi, MediaTek, Qualcomm, Samsung</li>
-                    <li>Перевірка:
-                        <pre>adb devices
+        <div class="card howto fade">
+            <h3>Samsung — коротка інструкція</h3>
+            <ol>
+                <li>Увімкнути <span class="kbd">OEM Unlock</span> у налаштуваннях.</li>
+                <li>Перезавантажити в Download Mode.</li>
+                <li>Прошити через <b>Odin3</b>.</li>
+            </ol>
+            <p class="muted">⚠ Деякі моделі операторів заблоковані.</p>
+        </div>
+
+        <!-- TWRP -->
+        <h2 class="section" id="twrp">💾 Як встановити TWRP</h2>
+
+        <div class="card howto fade">
+            <ol>
+                <li>Завантажити правильний <b>twrp.img</b>.</li>
+                <li>
+                    Fastboot:
+<pre>fastboot flash recovery twrp.img
+fastboot reboot recovery</pre>
+                </li>
+                <li>Wipe → system/data/dalvik перед прошивкою ROM/GApps.</li>
+            </ol>
+            <p class="muted">A/B пристрої потребують інструкції по слотам.</p>
+        </div>
+
+        <!-- Drivers -->
+        <h2 class="section" id="drivers">🔌 Драйвери ADB / Fastboot</h2>
+
+        <div class="card fade">
+<ul>
+<li>Android Platform Tools</li>
+<li>USB-драйвери: Xiaomi, MediaTek, Qualcomm, Samsung</li>
+<li>Перевірка:
+<pre>adb devices
 fastboot devices</pre>
-                    </li>
-                </ul>
-            </div>
-        </section>
+</li>
+</ul>
+        </div>
 
-        <section id="tools">
-            <h2 class="section">🛠 Інструменти</h2>
-            <div class="card tools-section">
-                <div class="tool-card">
-                    <h3>🔓 Mi Flash Unlock</h3>
-                    <a href="files/Mi-Unlock-Tool.zip" download class="download-btn">Скачати</a>
-                </div>
-                <div class="tool-card">
-                    <h3>🛠 Mi Flash Tool</h3>
-                    <a href="files/Mi-Flash-Tool.zip" download class="download-btn">Скачати</a>
-                </div>
-                <div class="tool-card">
-                    <h3>📦 MTK USB Drivers</h3>
-                    <a href="files/MTK-Driver-v5.2307.zip" download class="download-btn">Скачати</a>
-                </div>
-                <div class="tool-card">
-                    <h3>📦 Samsung USB Drivers</h3>
-                    <a href="files/Samsung-Drivers.zip" download class="download-btn">Скачати</a>
-                </div>
-                <div class="tool-card">
-                    <h3>📱 Odin3</h3>
-                    <a href="files/Odin3.zip" download class="download-btn">Скачати</a>
-                </div>
-                <div class="tool-card">
-                    <h3>🛠 Platform-Tools</h3>
-                    <a href="files/Platform-Tools.zip" download class="download-btn">Скачати</a>
-                </div>
-            </div>
-        </section>
+        <!-- microG -->
+        <h2 class="section" id="gms">🧩 microG / GApps</h2>
 
-        <section id="videos">
-            <h2 class="section">🎬 Відеоінструкції</h2>
-            <div class="card video-card">
-                <h3>Розблокування Xiaomi</h3>
+        <div class="card fade">
+            <p class="muted">
+                Для Android 15 поки немає офіційних GApps — використовуй microG або Magisk модуль
+                <b>microG Installer Revived</b>.
+            </p>
+        </div>
+
+        <!-- Videos -->
+        <h2 class="section" id="videos">🎬 Відеоінструкції</h2>
+
+        <div class="card fade">
+            <h3>Розблокування завантажувача (Xiaomi)</h3>
+            <div class="video-wrap">
                 <iframe src="https://www.youtube.com/embed/FuT4VF8nLrQ" allowfullscreen></iframe>
             </div>
-            <div class="card video-card">
-                <h3>Прошивка Samsung</h3>
+        </div>
+
+        <div class="card fade">
+            <h3>Розблокування / прошивка Samsung</h3>
+            <div class="video-wrap">
                 <iframe src="https://www.youtube.com/embed/coyR1MDuR4k?start=2" allowfullscreen></iframe>
             </div>
-        </section>
+        </div>
+
     </main>
+
+    <!-- ================= ASIDE ================= -->
+
+    <aside>
+
+        <div class="card fade">
+            <strong>Коротка пам'ятка</strong>
+            <p class="muted">1) Бекап. 2) OEM Unlock стирає дані. 3) Використовуй офіційні інструменти.</p>
+        </div>
+
+        <div class="card fade">
+            <strong>Швидкі команди</strong>
+<pre>adb devices
+adb reboot bootloader
+fastboot flash recovery twrp.img</pre>
+        </div>
+
+        <div class="card tools-section fade">
+            <h2>📥 Інструменти</h2>
+
+            <div class="tool-card">
+                <h3>🔓 Mi Flash Unlock</h3>
+                <a href="files/Mi-Unlock-Tool.zip" download class="download-btn">Скачати</a>
+            </div>
+
+            <div class="tool-card">
+                <h3>🛠 Mi Flash Tool</h3>
+                <a href="files/Mi-Flash-Tool.zip" download class="download-btn">Скачати</a>
+            </div>
+
+            <div class="tool-card">
+                <h3>📦 MTK USB Drivers</h3>
+                <a href="files/MTK-Driver-v5.2307.zip" download class="download-btn">Скачати</a>
+            </div>
+
+            <div class="tool-card">
+                <h3>📦 Samsung USB Drivers</h3>
+                <a href="files/Samsung-Drivers.zip" download class="download-btn">Скачати</a>
+            </div>
+
+            <div class="tool-card">
+                <h3>📱 Odin3</h3>
+                <a href="files/Odin3.zip" download class="download-btn">Скачати</a>
+            </div>
+
+            <div class="tool-card">
+                <h3>🛠 Platform-Tools</h3>
+                <a href="files/Platform-Tools.zip" download class="download-btn">Скачати</a>
+            </div>
+
+        </div>
+
+    </aside>
+
 </div>
+
+<!-- ================= FOOTER ================= -->
 
 <footer>
     © 2025 HyperOS Guide
 </footer>
 
-<script src="script.js"></script>
+<!-- ================= JS: Переключение темы ================= -->
+
+<script>
+document.getElementById("themeToggle").onclick = () => {
+    const html = document.documentElement;
+    const dark = html.getAttribute("data-theme") === "dark";
+    html.setAttribute("data-theme", dark ? "light" : "dark");
+};
+</script>
+
 </body>
 </html>
-
-
-
-
