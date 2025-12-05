@@ -1,52 +1,38 @@
-// ==============================
-// ТЁМНАЯ / СВЕТЛАЯ ТЕМА
-// ==============================
+// Переключение темы
+const toggleBtn = document.querySelector('.toggle-btn');
+const body = document.body;
 
-const themeToggle = document.createElement('button');
-themeToggle.classList.add('toggle-btn');
-themeToggle.textContent = '🌓 Сменить тему';
-document.body.prepend(themeToggle);
-
-themeToggle.addEventListener('click', () => {
-    const currentTheme = document.body.getAttribute('data-theme');
-    if (currentTheme === 'light') {
-        document.body.setAttribute('data-theme', 'dark');
+toggleBtn.addEventListener('click', () => {
+    if (body.dataset.theme === 'dark') {
+        body.dataset.theme = 'light';
     } else {
-        document.body.setAttribute('data-theme', 'light');
+        body.dataset.theme = 'dark';
     }
 });
 
-// ==============================
-// КНОПКА "НАВЕРХ"
-// ==============================
+// Плавный скролл меню
+const navLinks = document.querySelectorAll('.topnav a');
 
-const scrollTopBtn = document.createElement('button');
-scrollTopBtn.id = 'scrollTopBtn';
-scrollTopBtn.textContent = '⬆';
-document.body.appendChild(scrollTopBtn);
-
-scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 200) {
-        scrollTopBtn.style.display = 'block';
-    } else {
-        scrollTopBtn.style.display = 'none';
-    }
-});
-
-// ==============================
-// ПЛАВНЫЕ АНИМАЦИИ ПРИ НАВЕДЕНИИ
-// ==============================
-
-document.querySelectorAll('.tool-card, .card, .download-btn').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        el.style.transform = 'translateY(-5px)';
-    });
-    el.addEventListener('mouseleave', () => {
-        el.style.transform = 'translateY(0)';
+navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        const targetID = link.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetID);
+        if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
     });
 });
+
+// Neon hover effect on nav links
+navLinks.forEach(link => {
+    link.addEventListener('mouseover', () => {
+        link.style.textShadow = '0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff';
+    });
+    link.addEventListener('mouseout', () => {
+        link.style.textShadow = '';
+    });
+});
+
+
 
