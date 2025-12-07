@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="uk" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HyperOS Guide</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Scripts -->
+    <script defer src="script.js"></script>
+</head>
+<body>
+
+    <!-- ========================= LOADER ========================= -->
+    <div id="loader">
+        <div class="loader-logo">H</div>
+        <div class="loader-ring"></div>
+        <div class="loader-text">HyperOS Guide</div>
+    </div>
+
+    <!-- ========================= HEADER ========================= -->
+    <header>
+        <div class="logo">H</div>
+
+        <div class="title">
+            <h1 class="glow">HyperOS — Гайд з прошивки</h1>
+            <p>Bootloader • ADB/Fastboot • Drivers • microG</p>
+        </div>
+
+        <button id="themeToggle" class="theme-btn">🌙</button>
+    </header>
+
+    <!-- ========================= NAVIGATION ========================= -->
+    <nav class="nav">
+        <button onclick="openSection('welcome')">🏠 Вітання</button>
+        <button onclick="openSection('bootloader')">🔓 Розблокування</button>
+        <button onclick="openSection('drivers')">🔌 Драйвери</button>
+        <button onclick="openSection('gms')">🧩 microG / GApps</button>
+        <button onclick="openSection('videos')">🎬 Відео</button>
+        <button onclick="openSection('tools')">📥 Інструменти</button>
+    </nav>
+
+    <!-- ========================= CONTENT ========================= -->
+    <div class="content">
+
+        <!-- ========== Welcome ========== -->
+        <section id="welcome" class="section active">
+            <div class="card">
+                <h2 class="section-title">👋 Ласкаво просимо в HyperOS Guide</h2>
+                <p class="muted">
+                    Цей гайд допоможе розблокувати завантажувач, встановити драйвери, зрозуміти системні режими та безпечно прошивати смартфон.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>📱 Що таке Recovery?</h3>
+                <p class="muted">
+                    Recovery — це спеціальний режим смартфона, де можна скидати налаштування, встановлювати прошивки, робити wipe або резервні копії.
+                </p>
+                <ul>
+                    <li><b>Stock Recovery</b> — стандартне, обмежене.</li>
+                    <li><b>Custom Recovery</b> — наприклад TWRP, має набагато більше функцій.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>⚠ Поширені помилки</h3>
+                <ul>
+                    <li><b>The system has been destroyed</b> — неправильна прошивка.</li>
+                    <li><b>Bootloop</b> — зависання на логотипі.</li>
+                    <li><b>No command</b> — стандартне recovery.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ========== Bootloader ========== -->
+        <section id="bootloader" class="section">
+            <div class="card">
+                <h2 class="section-title">🔓 Розблокування Bootloader</h2>
+            </div>
+
+            <div class="card">
+                <h3>📌 Xiaomi (повна інструкція)</h3>
+                <ol>
+                    <li>Налаштування → Про телефон → 7 разів на «Версія MIUI».</li>
+                    <li>
+                        Увімкнути:
+                        <span class="kbd">USB Debugging</span>
+                        <span class="kbd">OEM Unlock</span>
+                    </li>
+                    <li>Прив'язати Mi Account:</li>
+                    <li>Fastboot → ПК → Mi Unlock Tool.</li>
+                    <li>Очікування від 72 до 168 годин.</li>
+                    <li>Натиснути Unlock.</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <h3>📌 Samsung (повна інструкція)</h3>
+                <ol>
+                    <li>Увімкнути <span class="kbd">OEM Unlock</span>.</li>
+                    <li>
+                        Зайти в Download Mode:<br>
+                        <span class="kbd">Vol- + Bixby + Power</span> або
+                        <span class="kbd">Vol- + Home + Power</span>
+                    </li>
+                    <li>Утримувати <span class="kbd">Vol+</span> щоб підтвердити unlock.</li>
+                    <li>Прошити через Odin (BL, AP, CSC).</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ========== Drivers ========== -->
+        <section id="drivers" class="section">
+            <div class="card">
+                <h2 class="section-title">🔌 Драйвери ADB / Fastboot</h2>
+            </div>
+
+            <div class="card">
+<pre>
+adb devices
+fastboot devices
+</pre>
+            </div>
+        </section>
+
+        <!-- ========== microG ========== -->
+        <section id="gms" class="section">
+            <div class="card">
+                <h2 class="section-title">🧩 microG / GApps</h2>
+                <p class="muted">
+                    На Android 14–15 офіційних GApps може не бути.
+                    Альтернатива — microG або Magisk модуль “microG Installer Revived”.
+                </p>
+            </div>
+        </section>
+
+        <!-- ========== Videos ========== -->
+        <section id="videos" class="section">
+
+            <h2 class="section-title">🎬 Відеоінструкції</h2>
+
+            <!-- Xiaomi Bootloader Unlock -->
+            <div class="card">
+                <h3>Розблокування завантажувача (Xiaomi)</h3>
+                <div class="video-wrap">
+                    <iframe src="https://www.youtube.com/embed/FuT4VF8nLrQ"
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- Samsung Bootloader Unlock -->
+            <div class="card">
+                <h3>Розблокування завантажувача (Samsung)</h3>
+                <div class="video-wrap">
+                    <iframe src="https://www.youtube.com/embed/coyR1MDuR4k"
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+
+        </section>
+
+       <!-- ========== Tools ========== -->
+        <section id="tools" class="section">
+            <div class="card">
+                <h2 class="section-title">📥 Інструменти</h2>
+            </div>
+
+            <div class="card tool-card">
+                <h3>Mi Unlock Tool</h3>
+                <button onclick="download('Mi-Unlock-Tool.zip')" class="download-btn">Скачати</button>
+            </div>
+
+            <div class="card tool-card">
+                <h3>Mi Flash Tool</h3>
+                <button onclick="download('Mi-Flash-Tool.zip')" class="download-btn">Скачати</button>
+            </div>
+
+            <div class="card tool-card">
+                <h3>Platform Tools</h3>
+                <button onclick="download('Platform-Tools.zip')" class="download-btn">Скачати</button>
+            </div>
+
+            <div class="card tool-card">
+                <h3>MTK Drivers</h3>
+                <button onclick="download('MTK-Driver-v5.2307.zip')" class="download-btn">Скачати</button>
+            </div>
+
+            <div class="card tool-card">
+                <h3>Samsung USB Drivers</h3>
+                <button onclick="download('Samsung-Drivers.zip')" class="download-btn">Скачати</button>
+            </div>
+
+            <div class="card tool-card">
+                <h3>Odin3</h3>
+                <button onclick="download('Odin3.zip')" class="download-btn">Скачати</button>
+            </div>
+
+        </section>
+
+    </div>
+
+    <footer>© 2025 HyperOS Guide</footer>
+
+</body>
+</html>
+
