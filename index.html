@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="uk" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HyperOS Guide</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="loader-logo">H</div>
+        <div class="loader-ring"></div>
+        <div class="loader-text">HyperOS Guide</div>
+    </div>
+
+    <header>
+        <div class="logo">H</div>
+        <div class="title">
+            <h1>HyperOS — Гайд з прошивки</h1>
+            <p>Bootloader • ADB • MTK • Samsung</p>
+        </div>
+        <button id="themeToggle">🌙</button>
+    </header>
+
+    <nav class="nav">
+        <button onclick="openSection('welcome')">🏠 Вітання</button>
+        <button onclick="openSection('bootloader')">🔓 Bootloader</button>
+        <button onclick="openSection('drivers')">🔌 Драйвери</button>
+        <button onclick="openSection('mtk')">📱 MTK Flash Tool</button>
+        <button onclick="openSection('tools')">📥 Інструменти</button>
+    </nav>
+
+    <main class="content">
+
+        <section id="welcome" class="section active">
+            <div class="card">
+                <h2>👋 Ласкаво просимо</h2>
+                <p>Цей сайт допоможе безпечно прошивати Android-пристрої.</p>
+            </div>
+        </section>
+
+        <section id="bootloader" class="section">
+            <div class="card">
+                <h2>🔓 Розблокування Bootloader</h2>
+                <ul>
+                    <li>Увімкнути OEM Unlock</li>
+                    <li>USB Debugging</li>
+                    <li>Fastboot → ПК</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="drivers" class="section">
+            <div class="card">
+                <h2>🔌 ADB / Fastboot</h2>
+                <pre>
+adb devices
+fastboot devices
+        </pre>
+            </div>
+        </section>
+
+        <!-- ===== MTK SECTION ===== -->
+        <section id="mtk" class="section">
+            <div class="card">
+                <h2>📱 MTK Flash Tool</h2>
+                <p>Інструмент для прошивки смартфонів на MediaTek.</p>
+            </div>
+
+            <div class="card">
+                <h3>🛠 Як прошити</h3>
+                <ol>
+                    <li>Встановити MTK Drivers</li>
+                    <li>Вибрати scatter.txt</li>
+                    <li>Режим <b>Download Only</b></li>
+                    <li>Підключити вимкнений телефон</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <h3>⚠ Часті помилки</h3>
+                <ul>
+                    <li><b>DA HASH MISMATCH</b> — не та прошивка</li>
+                    <li><b>DRAM FAIL</b> — неправильний preloader</li>
+                    <li><b>CMD FAIL</b> — кабель / порт</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <button class="download-btn" onclick="download('MTK-Flash-Tool.zip')">
+                    ⬇ Скачати MTK Flash Tool
+                </button>
+            </div>
+        </section>
+
+        <section id="tools" class="section">
+            <div class="card">
+                <h2>📥 Інструменти</h2>
+                <button class="download-btn" onclick="download('Platform-Tools.zip')">
+                    ⬇ Platform Tools
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>© 2025 HyperOS Guide</footer>
+</body>
+</html>
+

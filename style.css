@@ -1,0 +1,105 @@
+﻿:root {
+    --bg: #000;
+    --card: #0e0e0e;
+    --text: #eaeaea;
+    --accent: #00eaff;
+    --muted: #777;
+}
+
+[data-theme="light"] {
+    --bg: #f5f5f5;
+    --card: #fff;
+    --text: #111;
+    --accent: #007bff;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+header {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    background: #050505;
+}
+
+.logo {
+    font-size: 36px;
+    color: var(--accent);
+}
+
+.title {
+    margin-left: 15px;
+}
+
+#themeToggle {
+    margin-left: auto;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--accent);
+}
+
+.nav {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background: #070707;
+    overflow-x: auto;
+}
+
+    .nav button {
+        padding: 8px 14px;
+        background: var(--card);
+        color: var(--text);
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+        .nav button:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+.content {
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.section {
+    display: none;
+}
+
+    .section.active {
+        display: block;
+    }
+
+.card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.download-btn {
+    padding: 12px 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: var(--accent);
+    color: #000;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    color: var(--muted);
+}
