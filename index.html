@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="uk" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HyperOS Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== SPLASH SCREEN ===== -->
+<div id="splash">
+    <canvas id="splash-canvas"></canvas>
+    <div class="splash-logo-wrap">
+        <div class="splash-logo-circle">H</div>
+        <div class="splash-title">HyperOS</div>
+        <div class="splash-sub">Guide</div>
+        <div class="splash-loader">
+            <div class="splash-loader-bar"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MOBILE MENU BTN ===== -->
+<button class="menu-toggle" aria-label="Меню">☰</button>
+<div class="sidebar-overlay"></div>
+
+<!-- ===== APP ===== -->
+<div id="app">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">H</div>
+            <div class="sidebar-brand">
+                <div class="sidebar-brand-name">HyperOS</div>
+                <div class="sidebar-brand-sub">Гайд з прошивки</div>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav" role="navigation">
+            <div class="nav-item active" data-section="welcome" onclick="openSection('welcome')">
+                <span class="nav-icon">🏠</span>
+                <span>Вітання</span>
+            </div>
+            <div class="nav-item" data-section="bootloader" onclick="openSection('bootloader')">
+                <span class="nav-icon">🔓</span>
+                <span>Розблокування</span>
+            </div>
+            <div class="nav-item" data-section="drivers" onclick="openSection('drivers')">
+                <span class="nav-icon">🔌</span>
+                <span>Драйвери</span>
+            </div>
+            <div class="nav-item" data-section="gms" onclick="openSection('gms')">
+                <span class="nav-icon">🧩</span>
+                <span>microG / GApps</span>
+            </div>
+            <div class="nav-item" data-section="videos" onclick="openSection('videos')">
+                <span class="nav-icon">🎬</span>
+                <span>Відео</span>
+            </div>
+            <div class="nav-item" data-section="errors" onclick="openSection('errors')">
+                <span class="nav-icon">⚠️</span>
+                <span>Помилки</span>
+            </div>
+            <div class="nav-item" data-section="tools" onclick="openSection('tools')">
+                <span class="nav-icon">📥</span>
+                <span>Інструменти</span>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="theme-toggle" id="themeToggle" aria-label="Перемкнути тему">
+                <span class="theme-icon">🌙</span>
+                <span class="theme-label">Темна тема</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main">
+
+        <!-- Welcome -->
+        <section id="welcome" class="section active">
+            <h2 class="section-title">👋 Ласкаво просимо</h2>
+
+            <div class="card">
+                <h3>Про цей гайд</h3>
+                <p class="muted">
+                    Цей гайд допоможе розблокувати завантажувач, встановити драйвери, зрозуміти системні режими та безпечно прошивати смартфон.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>📱 Що таке Recovery?</h3>
+                <p class="muted">
+                    Recovery — це спеціальний режим смартфона, де можна скидати налаштування, встановлювати прошивки, робити wipe або резервні копії.
+                </p>
+                <ul>
+                    <li><b>Stock Recovery</b> — стандартне, обмежене.</li>
+                    <li><b>Custom Recovery</b> — наприклад TWRP, має набагато більше функцій.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>⚠ Поширені помилки</h3>
+                <ul>
+                    <li><b>The system has been destroyed</b> — неправильна прошивка.</li>
+                    <li><b>Bootloop</b> — зависання на логотипі.</li>
+                    <li><b>No command</b> — стандартне recovery.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Bootloader -->
+        <section id="bootloader" class="section">
+            <h2 class="section-title">🔓 Розблокування Bootloader</h2>
+
+            <div class="card">
+                <h3>📌 Xiaomi (повна інструкція)</h3>
+                <ol>
+                    <li>Налаштування → Про телефон → 7 разів на «Версія MIUI».</li>
+                    <li>Увімкнути: <span class="kbd">USB Debugging</span> <span class="kbd">OEM Unlock</span></li>
+                    <li>Прив'язати Mi Account до телефону.</li>
+                    <li>Перейти в Fastboot → підключити до ПК → запустити Mi Unlock Tool.</li>
+                    <li>Очікування від 72 до 168 годин.</li>
+                    <li>Натиснути Unlock.</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <h3>📌 Samsung (повна інструкція)</h3>
+                <ol>
+                    <li>Увімкнути <span class="kbd">OEM Unlock</span> у налаштуваннях розробника.</li>
+                    <li>Зайти в Download Mode: <span class="kbd">Vol- + Bixby + Power</span> або <span class="kbd">Vol- + Home + Power</span></li>
+                    <li>Утримувати <span class="kbd">Vol+</span> щоб підтвердити unlock.</li>
+                    <li>Прошити через Odin (BL, AP, CSC).</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Drivers -->
+        <section id="drivers" class="section">
+            <h2 class="section-title">🔌 Драйвери ADB / Fastboot</h2>
+
+            <div class="card">
+                <h3>Перевірка підключення</h3>
+                <p class="muted">Якщо пристрій не відображається — встанови драйвери з розділу «Інструменти».</p>
+                <pre>adb devices
+fastboot devices</pre>
+            </div>
+
+            <div class="card">
+                <h3>Базові ADB команди</h3>
+<pre>adb reboot bootloader      # перезавантаження в fastboot
+adb reboot recovery        # перезавантаження в recovery
+fastboot oem unlock        # розблокування (старі пристрої)</pre>
+            </div>
+        </section>
+
+        <!-- microG -->
+        <section id="gms" class="section">
+            <h2 class="section-title">🧩 microG / GApps</h2>
+
+            <div class="card">
+                <p class="muted">
+                    На Android 14–15 офіційних GApps може не бути. Альтернатива — microG або Magisk модуль «microG Installer Revived».
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>Що таке microG?</h3>
+                <p class="muted">
+                    microG — це open-source заміна сервісів Google (GMS). Дозволяє запускати додатки, що потребують Google Play Services, без офіційних сервісів Google.
+                </p>
+                <ul>
+                    <li>Менше споживання батареї та RAM</li>
+                    <li>Відкритий вихідний код</li>
+                    <li>Підтримка більшості додатків</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Videos -->
+        <section id="videos" class="section">
+            <h2 class="section-title">🎬 Відеоінструкції</h2>
+
+            <div class="card">
+                <h3>Розблокування завантажувача (Xiaomi)</h3>
+                <div class="video-wrap">
+                    <iframe src="https://www.youtube.com/embed/coyR1MDuR4k"
+                            title="Xiaomi Bootloader Unlock" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Розблокування завантажувача (Samsung)</h3>
+                <div class="video-wrap">
+                    <iframe src="https://www.youtube.com/embed/FuT4VF8nLrQ"
+                            title="Samsung Bootloader Unlock" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Errors -->
+        <section id="errors" class="section">
+            <h2 class="section-title">⚠️ Помилки та їх виправлення</h2>
+
+            <div class="error-grid">
+
+                <!-- 1. System destroyed -->
+                <div class="error-card" id="err-1">
+                    <div class="error-card-header" onclick="toggleError('err-1')">
+                        <div class="error-badge red">💀</div>
+                        <div class="error-card-meta">
+                            <h3>The system has been destroyed</h3>
+                            <div class="error-tag">system_destroyed / verity fail</div>
+                        </div>
+                        <span class="error-severity severity-critical">Критична</span>
+                        <span class="error-chevron">▾</span>
+                    </div>
+                    <div class="error-card-body">
+                        <div class="error-screen-wrap">
+                            <img src="img/errors/system-destroyed.svg" alt="Екран The system has been destroyed">
+                        </div>
+                        <div class="error-fix">
+                            <h4>Як виправити</h4>
+                            <div class="fix-steps">
+                                <div class="fix-step">
+                                    <div class="fix-step-num">1</div>
+                                    <div class="fix-step-text">Завантажся в <strong>Fastboot Mode</strong> — <code>Vol- + Power</code></div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">2</div>
+                                    <div class="fix-step-text">Проший стокову прошивку через <strong>Mi Flash Tool</strong> або <code>fastboot flash</code></div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">3</div>
+                                    <div class="fix-step-text">Переконайся що прошивка підходить саме для твоєї моделі та регіону</div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">4</div>
+                                    <div class="fix-step-text">Якщо fastboot не бачить пристрій — спробуй режим <strong>EDL (9008)</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Bootloop -->
+                <div class="error-card" id="err-2">
+                    <div class="error-card-header" onclick="toggleError('err-2')">
+                        <div class="error-badge orange">🔄</div>
+                        <div class="error-card-meta">
+                            <h3>Bootloop</h3>
+                            <div class="error-tag">застряг на логотипі / цикл перезавантаження</div>
+                        </div>
+                        <span class="error-severity severity-warning">Важлива</span>
+                        <span class="error-chevron">▾</span>
+                    </div>
+                    <div class="error-card-body">
+                        <div class="error-screen-wrap">
+                            <img src="img/errors/bootloop.svg" alt="Bootloop — застряг на логотипі">
+                        </div>
+                        <div class="error-fix">
+                            <h4>Як виправити</h4>
+                            <div class="fix-steps">
+                                <div class="fix-step">
+                                    <div class="fix-step-num">1</div>
+                                    <div class="fix-step-text">Зайди в <strong>Recovery</strong> та зроби <code>Wipe Data / Factory Reset</code></div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">2</div>
+                                    <div class="fix-step-text">Якщо не допомогло — зайди в <strong>Fastboot</strong> та проший стокову ROM через Mi Flash Tool</div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">3</div>
+                                    <div class="fix-step-text">Переконайся що Custom ROM сумісна з твоїм пристроєм — перевір кодову назву (<code>codename</code>)</div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">4</div>
+                                    <div class="fix-step-text">Якщо використовуєш Magisk — видали модулі через <code>Magisk → Modules → видали всі</code></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. No command -->
+                <div class="error-card" id="err-3">
+                    <div class="error-card-header" onclick="toggleError('err-3')">
+                        <div class="error-badge yellow">📵</div>
+                        <div class="error-card-meta">
+                            <h3>No command</h3>
+                            <div class="error-tag">recovery показує Android з знаком питання</div>
+                        </div>
+                        <span class="error-severity severity-info">Не критична</span>
+                        <span class="error-chevron">▾</span>
+                    </div>
+                    <div class="error-card-body">
+                        <div class="error-screen-wrap">
+                            <img src="img/errors/no-command.svg" alt="No command — recovery екран">
+                        </div>
+                        <div class="error-fix">
+                            <h4>Як виправити</h4>
+                            <div class="fix-steps">
+                                <div class="fix-step">
+                                    <div class="fix-step-num">1</div>
+                                    <div class="fix-step-text">Це нормальний стан — просто утримуй <code>Vol+</code> і одночасно натисни <code>Power</code></div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">2</div>
+                                    <div class="fix-step-text">З'явиться меню stock recovery — вибирай стрілками гучності, підтверджуй кнопкою живлення</div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">3</div>
+                                    <div class="fix-step-text">Для повного меню рекомендується встановити <strong>TWRP</strong> замість stock recovery</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Fastboot locked -->
+                <div class="error-card" id="err-4">
+                    <div class="error-card-header" onclick="toggleError('err-4')">
+                        <div class="error-badge red">🔒</div>
+                        <div class="error-card-meta">
+                            <h3>Fastboot LOCKED</h3>
+                            <div class="error-tag">FLASHING_LOCK / bootloader locked</div>
+                        </div>
+                        <span class="error-severity severity-warning">Важлива</span>
+                        <span class="error-chevron">▾</span>
+                    </div>
+                    <div class="error-card-body">
+                        <div class="error-screen-wrap">
+                            <img src="img/errors/fastboot.svg" alt="Fastboot LOCKED екран">
+                        </div>
+                        <div class="error-fix">
+                            <h4>Як виправити</h4>
+                            <div class="fix-steps">
+                                <div class="fix-step">
+                                    <div class="fix-step-num">1</div>
+                                    <div class="fix-step-text">Для Xiaomi — використай офіційний <strong>Mi Unlock Tool</strong> та прив'яжи Mi Account</div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">2</div>
+                                    <div class="fix-step-text">Зачекай обов'язковий термін: зазвичай 72–168 годин після прив'язки акаунту</div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">3</div>
+                                    <div class="fix-step-text">Для старих пристроїв можна спробувати: <code>fastboot oem unlock</code></div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">4</div>
+                                    <div class="fix-step-text">Переконайся що <code>OEM Unlock</code> увімкнено в налаштуваннях розробника</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. dm-verity -->
+                <div class="error-card" id="err-5">
+                    <div class="error-card-header" onclick="toggleError('err-5')">
+                        <div class="error-badge orange">⚠️</div>
+                        <div class="error-card-meta">
+                            <h3>dm-verity corruption</h3>
+                            <div class="error-tag">Your device is corrupt</div>
+                        </div>
+                        <span class="error-severity severity-warning">Важлива</span>
+                        <span class="error-chevron">▾</span>
+                    </div>
+                    <div class="error-card-body">
+                        <div class="error-screen-wrap">
+                            <img src="img/errors/dm-verity.svg" alt="dm-verity corruption екран">
+                        </div>
+                        <div class="error-fix">
+                            <h4>Як виправити</h4>
+                            <div class="fix-steps">
+                                <div class="fix-step">
+                                    <div class="fix-step-num">1</div>
+                                    <div class="fix-step-text">Це попередження з'являється після розблокування bootloader — це <strong>нормально</strong>, просто натисни Power</div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">2</div>
+                                    <div class="fix-step-text">Якщо пристрій не завантажується — проший стокову ROM через fastboot</div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">3</div>
+                                    <div class="fix-step-text">Щоб прибрати попередження — можна відключити verity: <code>fastboot disable-verity</code></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. ADB unauthorized -->
+                <div class="error-card" id="err-6">
+                    <div class="error-card-header" onclick="toggleError('err-6')">
+                        <div class="error-badge blue">🖥️</div>
+                        <div class="error-card-meta">
+                            <h3>ADB unauthorized</h3>
+                            <div class="error-tag">adb devices → unauthorized</div>
+                        </div>
+                        <span class="error-severity severity-info">Не критична</span>
+                        <span class="error-chevron">▾</span>
+                    </div>
+                    <div class="error-card-body">
+                        <div class="error-screen-wrap error-screen-wide">
+                            <img src="img/errors/adb-unauthorized.svg" alt="ADB unauthorized — термінал">
+                        </div>
+                        <div class="error-fix">
+                            <h4>Як виправити</h4>
+                            <div class="fix-steps">
+                                <div class="fix-step">
+                                    <div class="fix-step-num">1</div>
+                                    <div class="fix-step-text">На телефоні з'явиться запит — натисни <strong>«Дозволити»</strong> та постав галочку «Завжди дозволяти з цього ПК»</div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">2</div>
+                                    <div class="fix-step-text">Якщо запиту немає — відключи USB та підключи знову, вибери режим <strong>«Передача файлів»</strong></div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">3</div>
+                                    <div class="fix-step-text">Скинь ADB ключі: <code>adb kill-server</code> → <code>adb start-server</code></div>
+                                </div>
+                                <div class="fix-step">
+                                    <div class="fix-step-num">4</div>
+                                    <div class="fix-step-text">Налаштування → Параметри розробника → Скинути авторизації USB-налагодження</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Tools -->
+        <section id="tools" class="section">
+            <h2 class="section-title">📥 Інструменти</h2>
+
+            <div class="tools-grid">
+                <div class="card tool-card">
+                    <h3>Mi Unlock Tool</h3>
+                    <p class="tool-note">Офіційний інструмент для розблокування Xiaomi · v7.6.727.43</p>
+                    <button onclick="download('mi-unlock-7-6-727-43.zip')" class="download-btn">Скачати</button>
+                </div>
+                <div class="card tool-card">
+                    <h3>Mi Flash Tool</h3>
+                    <p class="tool-note">Прошивка через fastboot на Xiaomi · 2022.05.07</p>
+                    <button onclick="download('xiaomi-flash-tool-20220507.zip')" class="download-btn">Скачати</button>
+                </div>
+                <div class="card tool-card">
+                    <h3>Platform Tools</h3>
+                    <p class="tool-note">ADB та Fastboot від Google</p>
+                    <button onclick="download('Platform-Tools.zip')" class="download-btn">Скачати</button>
+                </div>
+                <div class="card tool-card">
+                    <h3>MTK Drivers</h3>
+                    <p class="tool-note">Драйвери для чипів MediaTek · v5.2307</p>
+                    <button onclick="download('MTK-Driver-v5.2307.zip')" class="download-btn">Скачати</button>
+                </div>
+                <div class="card tool-card">
+                    <h3>Samsung USB Drivers</h3>
+                    <p class="tool-note">Драйвери для пристроїв Samsung · v1.9.5.0</p>
+                    <button onclick="download('SAMSUNG_USB_Driver_for_Mobile_Phones_v1.9.5.0.exe')" class="download-btn">Скачати</button>
+                </div>
+                <div class="card tool-card">
+                    <h3>Odin3</h3>
+                    <p class="tool-note">Прошивка Samsung через Download Mode</p>
+                    <button onclick="download('Odin3.zip')" class="download-btn">Скачати</button>
+                </div>
+            </div>
+        </section>
+
+        <footer>© 2025 HyperOS Guide</footer>
+
+    </main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
